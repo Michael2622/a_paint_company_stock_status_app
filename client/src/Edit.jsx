@@ -8,14 +8,16 @@ function Edit() {
     const {id} = useParams();
     const navigate = useNavigate();
     
+    //Initilizing values to be replaced by GET request
     const [values, setValues] = useState({
         colour_name: '',
         stock: '',
         status: ''
     })
 
+    //Queries for values from node.js API/server
     useEffect(() => {
-        Axios.get('http://localhost:8081/edit/'+id)
+        Axios.get('http://localhost:8825/edit/'+id)
         .then(res => {
             console.log(res)
             setValues({...values, colour_name: res.data[0].colour_name, stock: res.data[0].stock, status: res.data[0].status})
@@ -23,9 +25,10 @@ function Edit() {
         .catch(err => console.log(err))
     }, [])
 
+    //Makes PUT request to node.js API/server to replace current values of the ID-specified entry
     const handleEdit = (event) => {
         event.preventDefault();
-        axios.put('http://localhost:8081/edit/'+id, values)
+        axios.put('http://localhost:8825/edit/'+id, values)
         .then(res => {
             console.log(res)
             navigate('/')
@@ -33,6 +36,7 @@ function Edit() {
         .catch(err => console.log(err))
     }
 
+    //Form to display editable fields
     return (
         <div className='d-flex vh-100 bg-primary justify-content-center align-items-center'>
             <div className='w-50 bg-white rounded p-3'>

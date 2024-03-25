@@ -5,15 +5,17 @@ import { useNavigate } from 'react-router-dom'
 function Add() {
     const navigate = useNavigate();
     
+    //Initilizing values to be edited/submitted by user when submitting POST request
     const [values, setValues] = useState({
         colour_name: '',
         stock: '',
         status: ''
     })
 
+    //Submits POST request to add specified values to MySQL table
     const handleSubmit = (e) => {
         e.preventDefault();
-        Axios.post('http://localhost:8081/paint_inventory', values)
+        Axios.post('http://localhost:8825/paint_inventory', values)
         .then(res => {
             console.log(res)
             navigate('/')
@@ -21,6 +23,7 @@ function Add() {
         .catch(err => console.log(err))
     }
 
+    //Form to display fields to be used for adding entry
     return (
         <div className='d-flex vh-100 bg-primary justify-content-center align-items-center'>
             <div className='w-50 bg-white rounded p-3'>

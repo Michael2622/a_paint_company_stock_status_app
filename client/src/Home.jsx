@@ -6,20 +6,23 @@ import Axios from 'axios'
 function Home() {
     const [data, setData] = useState([])
 
+    //GET request to get all entries from MySQL table to display on Web App
     useEffect(() => {
-        Axios.get('http://localhost:8081/')
+        Axios.get('http://localhost:8825/')
             .then(res => setData(res.data))
             .catch(err => console.log(err))
     }, [])
 
+    //Submits DELETE request to have ID-specified entry deleted from MySQL server
     const handleDelete = (id) => {
-        Axios.delete('http://localhost:8081/delete/'+id)
+        Axios.delete('http://localhost:8825/delete/'+id)
         .then(res => {
             window.location.reload();
         })
         .catch(err => console.log(err))
     }
 
+    //Displays all entries of MySQL table and provides buttons to manage the entries
     return (
         <div className='d-flex vh-100 bg-secondary justify-content-center align-items-center'>
             <div className='w-50 bg-white rounded p-3 table-responsive'>

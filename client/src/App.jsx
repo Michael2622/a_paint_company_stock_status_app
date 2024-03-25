@@ -6,6 +6,7 @@ import Edit from './Edit'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
+//Initiliazing BrowserRouter to manage different React pages
 function App() {
   return (
     <BrowserRouter>
