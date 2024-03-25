@@ -5,9 +5,9 @@ import Axios from 'axios'
 import axios from 'axios';
 
 function Edit() {
-    const {id} = useParams();
+    const { id } = useParams();
     const navigate = useNavigate();
-    
+
     //Initilizing values to be replaced by GET request
     const [values, setValues] = useState({
         colour_name: '',
@@ -17,23 +17,23 @@ function Edit() {
 
     //Queries for values from node.js API/server
     useEffect(() => {
-        Axios.get('http://localhost:8825/edit/'+id)
-        .then(res => {
-            console.log(res)
-            setValues({...values, colour_name: res.data[0].colour_name, stock: res.data[0].stock, status: res.data[0].status})
-        })
-        .catch(err => console.log(err))
+        Axios.get('http://localhost:8825/edit/' + id)
+            .then(res => {
+                console.log(res)
+                setValues({ ...values, colour_name: res.data[0].colour_name, stock: res.data[0].stock, status: res.data[0].status })
+            })
+            .catch(err => console.log(err))
     }, [])
 
     //Makes PUT request to node.js API/server to replace current values of the ID-specified entry
     const handleEdit = (event) => {
         event.preventDefault();
-        axios.put('http://localhost:8825/edit/'+id, values)
-        .then(res => {
-            console.log(res)
-            navigate('/')
-        })
-        .catch(err => console.log(err))
+        axios.put('http://localhost:8825/edit/' + id, values)
+            .then(res => {
+                console.log(res)
+                navigate('/')
+            })
+            .catch(err => console.log(err))
     }
 
     //Form to display editable fields
@@ -54,8 +54,12 @@ function Edit() {
                     </div>
                     <div className='mb-2'>
                         <label htmlFor=''>Status</label>
-                        <input type='text' placeholder='Enter Status' class='form-control' value={values.status}
-                            onChange={e => setValues({ ...values, status: e.target.value })} />
+                        <select class='form-control' value={values.status}
+                            onChange={e => setValues({ ...values, status: e.target.value })}>
+                            <option value="Out of Stock">Out of Stock</option>
+                            <option value="Running Low">Running Low</option>
+                            <option value="Available">Available</option>
+                        </select>
                     </div>
                     <button className='btn btn-success'>Save</button>
                 </form>
